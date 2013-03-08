@@ -15,7 +15,9 @@ namespace UplayStarter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UplayStarterForm());
+            var form = new UplayStarterForm();
+            form.Close(); //start in taskbar
+            Application.Run();
         }
     }
 }

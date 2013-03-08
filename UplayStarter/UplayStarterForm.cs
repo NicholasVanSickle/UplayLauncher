@@ -30,7 +30,7 @@ namespace UplayStarter
             FormBorderStyle = FormBorderStyle.Fixed3D;
 
             _trayMenu = new ContextMenu();
-            _toggleItem = new MenuItem("Enabled", (x,y) => checkBox1.Checked = !checkBox1.Checked);
+            _toggleItem = new MenuItem("Enabled", (o, e) => checkBox1.Checked = !checkBox1.Checked);
             _toggleItem.Checked = checkBox1.Checked;
             _trayMenu.MenuItems.Add(_toggleItem);
             _trayMenu.MenuItems.Add(new MenuItem("Exit", (o, e) => Close()));
@@ -49,10 +49,11 @@ namespace UplayStarter
                                if (_trayIcon.Visible)
                                {
                                    _trayIcon.Visible = false;
+                                   Application.Exit();
                                    return;
                                }
                                _trayIcon.Visible = true;
-                               _trayIcon.ShowBalloonTip(3000, "Uplay Starter Still Running!", "Uplay Starter will run in the background until closed.", ToolTipIcon.Info);
+                               _trayIcon.ShowBalloonTip(3000, "Uplay Starter Running!", "Uplay Starter will run in the background until closed.", ToolTipIcon.Info);
                                Visible = ShowInTaskbar = false;
                                e.Cancel = true;
                            };
@@ -67,6 +68,8 @@ namespace UplayStarter
 
             _timer.Interval = 500;
             _timer.Tick += (o, e) => processTick();
+
+            checkBox1.Checked = true;
         }
 
         private Color _defaultBackColor;
